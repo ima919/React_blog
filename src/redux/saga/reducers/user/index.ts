@@ -21,14 +21,15 @@ export default function (state = initialStateSetter, action: ActionParams) {
     }
 
     case loginAction.SUCCESS: {
-      console.log('登录成功', action.payload);
       return {
         ...state,
         isLogin: true,
+        loading: false,
+        // 这里是预防，这里暂时用不着这么写，但是万一将来需求有变化。
+        ...action.payload,
       }
     }
     case loginAction.FAILURE: {
-      console.log('登录出错了', action.payload);
       return {
         ...state,
         loading: false,

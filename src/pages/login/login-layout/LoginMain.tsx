@@ -43,9 +43,8 @@ const LoginMain: React.FC<IProps> = (props) => {
       // 如果套上了try catch
       try {
         const result = await fetch(values);
-        console.log('result-----------------', result);
       } catch ( error ) {
-        console.log('result-----------------', error);
+
       }
 
 

@@ -31,6 +31,14 @@ const Auth: React.FC<IProps> = (props) => {
   const isLogin = loginUtils.getUserState();
   const { route, location } = props;
 
+  /*
+  * 如果咱们有些项目，是需要登陆过后，在路由鉴权这里去请求用户的信息，那么
+  * useEffect(() => {
+  *   做异步处理，请求数据。
+  *   发起action
+  * }, [isLogin]);
+  * */
+
   const GlobalTip = (
     retryTip
       ?
@@ -57,7 +65,19 @@ const Auth: React.FC<IProps> = (props) => {
   )
 
   // 需要处理 判断路由
+  // 如果没有登录，且不在登陆页
   if( !isLogin && location.pathname !== '/login' ) return  <Redirect to='/login' />
+  // 已经登录 是否还在登录页
+  if( isLogin && location.pathname === '/login' ) return <Redirect to='/' />
+
+  // 重要的来了，在这里，判断权限.
+  // if( permissions.length === 0 && isLogin ) return (
+  //  <>
+  //       { GlobalTip }
+  //
+  //       <Spin className="spin-center />
+  //     </>
+  // )
 
   return (
     <>

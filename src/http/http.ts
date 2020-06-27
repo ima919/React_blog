@@ -12,6 +12,7 @@ import AxiosInstance, {
 import { message } from 'antd';
 import { setRetryTip } from '../redux/saga/actions/common';
 import store from '../redux';
+import isRetryAllowed from './isRetryAllowed';
 
 // 定义一个请求的参数类型声明
 type requestFn = (url: string, params?: Object, data?: Object | null) => AxiosPromise;
@@ -59,6 +60,7 @@ class Http {
         // errorCode, errMsg 这些字段,也是后端返回的,有可能是 status  有可能是success
         if( res.data.errorCode === '101010500' ) {
           message.error('服务器错误,请联系管理员');
+          return Promise.reject(res.data);
         }
 
         // token 过期了,
@@ -77,39 +79,42 @@ class Http {
         return Promise.resolve(res.data);
       },
       (error: AxiosError) => {
-        console.log('是不是走的error')
-        // 请求出错,走到这里的话,多半是服务器的问题
-        // 先来处理多次请求失败的情况,
-        const { config } = error;
-        let retryCont = config.headers['axios-retry'] || 0;
-        if( retryCont >= this.retry ) {
-          // 告诉redux 重试次数已超过指定次数,应该修改状态, 然后组件里自动感应,变为true过后,就会提示用户
-          // 提示方式有很多种,就看大家怎么定义 可以用 notification 也可以用ant-design 提供的 Alert组件
-          store.dispatch(setRetryTip(true));
-          return Promise.reject(error);
+        if( !isRetryAllowed(error) ) {
+          // 请求出错,走到这里的话,多半是服务器的问题
+          // 先来处理多次请求失败的情况,
+          const { config } = error;
+          let retryCont = config.headers['axios-retry'] || 0;
+          if( retryCont >= this.retry ) {
+            // 告诉redux 重试次数已超过指定次数,应该修改状态, 然后组件里自动感应,变为true过后,就会提示用户
+            // 提示方式有很多种,就看大家怎么定义 可以用 notification 也可以用ant-design 提供的 Alert组件
+            store.dispatch(setRetryTip(true));
+            return Promise.reject(error);
+          }
+          retryCont += 1;
+          const backoff = new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, this.retryDelay || 1);
+          });
+
+          // 修改重试次数
+          config.headers['axios-retry'] = retryCont;
+
+          // 必须要在 error中的 config 中去显示绑定才会触发执行
+          return backoff.then(() => this.axios(config) );
         }
-        retryCont += 1;
-        const backoff = new Promise((resolve) => {
-          setTimeout(() => {
-            resolve();
-          }, this.retryDelay || 1);
-        });
 
-        // 修改重试次数
-        config.headers['axios-retry'] = retryCont;
+        if( error.response ) {
+          // http的状态码 非200的时候
+          if( error.response.status >= 500 ) message.error('服务器错误');
+        } else if( error.request ) {
+          // ...
+        } else {
+          // 其他错误
+          message.error(error.message);
+        }
 
-        // 必须要在 error中的 config 中去显示绑定才会触发执行
-        return backoff.then(() => {
-          this.axios(config);
-        });
-
-        /*
-        * 遗留一点未处理的错误信息
-        * 可能还有其他错误
-        * if( error.response ) {}
-        * */
-
-
+        return Promise.reject(error);
       }
 
     );

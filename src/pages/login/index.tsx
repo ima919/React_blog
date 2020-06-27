@@ -6,7 +6,7 @@
 import React, {memo} from 'react';
 import { Redirect } from 'react-router-dom';
 import useActions from '../../hooks/useActions';
-import { loginAction, loginActionPromise } from '../../redux/saga/actions/user';
+import { loginActionPromise } from '../../redux/saga/actions/user';
 import ParticlesBg from 'particles-bg';
 import LoginMain from './login-layout/LoginMain';
 
@@ -36,10 +36,10 @@ const Login: React.FC<IProps> = (props) => {
           fetch={actions.loginActionPromise}
         />
         <div className='login-layout-footer' />
-        {/*<ParticlesBg
+        <ParticlesBg
           type="lines"
           bg
-        />*/}
+        />
       </div>
     </div>
   );

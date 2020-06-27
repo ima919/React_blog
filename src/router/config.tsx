@@ -4,6 +4,7 @@ import Article from '../pages/blog-manage/article';
 import Tag from '../pages/blog-manage/tag';
 import CreateTag from '../pages/blog-manage/tag/CreateTag';
 import Login from '../pages/login';
+import BlogLayout from '../layout';
 import RouteWithSubRouters from './RouteWithSubRouters';
 
 export default [
@@ -15,143 +16,149 @@ export default [
     routes: [
       {
         // 1级级路由
-        component: Dashboard,
-        icon: '',
-        name: '工作台',
-        path: '/dashboard',
-      },
-      {
-        // 1级级路由
         component: Login,
         path: '/login',
       },
-
-      // 还有一个404 的页面，
       {
-        // 1级级路由
-        component: RouteWithSubRouters,
-        icon: '',
-        name: '博客管理',
-        path: '/article-manage',
+        path: '/',
+        component: BlogLayout,
         routes: [
           {
-            // 2级级路由
+            // 1级级路由
+            component: Dashboard,
+            icon: '',
+            name: '工作台',
+            path: '/dashboard',
+          },
+          // 还有一个404 的页面，
+          {
+
+            // 1级级路由
             component: RouteWithSubRouters,
             icon: '',
-            name: '标签管理',
-            path: '/tag',
+            name: '博客管理',
+            path: '/article-manage',
             routes: [
               {
-                // 3级级路由
+                // 2级级路由
                 component: RouteWithSubRouters,
                 icon: '',
-                name: '标签列表',
-                path: '/list',
+                name: '标签管理',
+                path: '/tag',
                 routes: [
                   {
-                    // 4级级路由
-                    component: Tag,
-                  },
-                  {
-                    path: '/create',
+                    // 3级级路由
+                    component: RouteWithSubRouters,
                     icon: '',
-                    name: '新建标签',
-                    component: CreateTag,
+                    name: '标签列表',
+                    path: '/list',
+                    routes: [
+                      {
+                        // 4级级路由
+                        component: Tag,
+                      },
+                      {
+                        path: '/create',
+                        icon: '',
+                        name: '新建标签',
+                        component: CreateTag,
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                // 2级级路由
+                component: RouteWithSubRouters,
+                icon: '',
+                name: '文章管理',
+                path: '/article',
+                routes: [
+                  {
+                    // 3级级路由
+                    component: RouteWithSubRouters,
+                    icon: '',
+                    name: '文章列表',
+                    path: '/list',
+                    routes: [
+                      {
+                        // 4级级路由
+                        component: Article,
+                      },
+                      {
+                        path: '/create',
+                        icon: '',
+                        name: '新建标签',
+                        component: CreateTag,
+                      }
+                    ]
                   }
                 ]
               }
             ]
           },
+
           {
-            // 2级级路由
+            // 1级级路由
             component: RouteWithSubRouters,
             icon: '',
-            name: '文章管理',
-            path: '/article',
+            name: '个人中心', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
+            path: '/person',
             routes: [
               {
-                // 3级级路由
+                // 2级级路由
                 component: RouteWithSubRouters,
                 icon: '',
-                name: '文章列表',
-                path: '/list',
+                name: '记账系统',
+                path: '/account',
                 routes: [
                   {
-                    // 4级级路由
-                    component: Article,
-                  },
-                  {
-                    path: '/create',
+                    // 3级级路由
+                    component: RouteWithSubRouters,
                     icon: '',
-                    name: '新建标签',
-                    component: CreateTag,
+                    name: '账务列表',
+                    path: '/list',
+                    routes: [
+                      {
+                        // 4级级路由
+                        component: Tag,
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                // 2级级路由
+                component: RouteWithSubRouters,
+                icon: '',
+                name: '规划管理',
+                path: '/plan',
+                routes: [
+                  {
+                    // 3级级路由
+                    component: RouteWithSubRouters,
+                    icon: '',
+                    name: '近期TODO',
+                    path: '/list',
+                    routes: [
+                      {
+                        // 4级级路由
+                        component: Tag,
+                      },
+                      {
+                        path: '/create',
+                        icon: '',
+                        name: '新建计划',
+                        component: CreateTag,
+                      }
+                    ]
                   }
                 ]
               }
             ]
           }
-        ]
+        ],
       },
-
-      {
-        // 1级级路由
-        component: RouteWithSubRouters,
-        icon: '',
-        name: '个人中心', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
-        path: '/person',
-        routes: [
-          {
-            // 2级级路由
-            component: RouteWithSubRouters,
-            icon: '',
-            name: '记账系统',
-            path: '/account',
-            routes: [
-              {
-                // 3级级路由
-                component: RouteWithSubRouters,
-                icon: '',
-                name: '账务列表',
-                path: '/list',
-                routes: [
-                  {
-                    // 4级级路由
-                    component: Tag,
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            // 2级级路由
-            component: RouteWithSubRouters,
-            icon: '',
-            name: '规划管理',
-            path: '/plan',
-            routes: [
-              {
-                // 3级级路由
-                component: RouteWithSubRouters,
-                icon: '',
-                name: '近期TODO',
-                path: '/list',
-                routes: [
-                  {
-                    // 4级级路由
-                    component: Tag,
-                  },
-                  {
-                    path: '/create',
-                    icon: '',
-                    name: '新建计划',
-                    component: CreateTag,
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
     ]
   }
 ];
