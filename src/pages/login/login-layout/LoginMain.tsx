@@ -7,6 +7,7 @@ import React, {
   memo,
 } from 'react';
 import { Form, Button, Input, notification } from 'antd';
+import MD5 from 'crypto-js/md5';
 
 interface IProps {
   fetch: (values: ILogin) => Promise<any>;
@@ -28,6 +29,11 @@ const LoginMain: React.FC<IProps> = (props) => {
         description: '用户名或密码错误',
       })
     } else {
+
+      const { REACT_APP_MD5_SUFFIX } = process.env;
+      // 加密密码
+      const newPassword = MD5(`${values.password}${REACT_APP_MD5_SUFFIX}`).toString();
+
       // 执行登录的逻辑
       // 希望成功登录 使用这个加密过后的密码
       // 51059a4712331fa67d5ea10854b477a6
@@ -42,7 +48,10 @@ const LoginMain: React.FC<IProps> = (props) => {
 
       // 如果套上了try catch
       try {
-        const result = await fetch(values);
+        await fetch({
+          username: values.username,
+          password: newPassword,
+        });
       } catch ( error ) {
 
       }
