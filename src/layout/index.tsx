@@ -15,6 +15,10 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
+import TopMenu from './components/top-menu';
+import RightMenu from './components/right-menu';
+
+
 import './index.less';
 
 
@@ -49,18 +53,28 @@ const BlogLayout: React.FC<IProps> = (props) => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout">
+      <Layout className="layout-header">
         <Header
-          className="layout-header"
-          style={{ padding: 0 }}
+          className="layout-header-background"
         >
-          {
-            React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+          <div className="layout-header-top">
+            <div className='trigger'>
               {
-              className: 'trigger',
-              onClick: toggle,
-            })
-          }
+                React.createElement(
+                  collapsed
+                    ? MenuUnfoldOutlined
+                    : MenuFoldOutlined,
+                  {onClick: toggle}
+                  )
+              }
+            </div>
+            <div className="box1">
+              <TopMenu />
+            </div>
+            <div className="box2">
+              <RightMenu />
+            </div>
+          </div>
         </Header>
         <Content
           className="site-layout-background"
