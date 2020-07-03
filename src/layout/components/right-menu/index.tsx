@@ -3,7 +3,10 @@
  * @time: 2020/7/2
  * @func: 顶部右侧布局
  ***/
-import React, {memo} from 'react';
+import React, {
+  memo,
+  useCallback,
+} from 'react';
 import PickerColor from '../../../components/pick-color';
 
 import './index.less';
@@ -14,9 +17,16 @@ interface IProps {
 
 const RightMenu: React.FC<IProps> = (props) => {
 
+  const handleColorChange = useCallback((color) => {
+    console.log(color);
+  }, []);
+
   return (
     <div className="right-menu">
-      <PickerColor />
+      <PickerColor
+        themColor={"#ce13a0"}
+        onChangeComplete={handleColorChange}
+      />
       <div className="language">
         简体中文
       </div>
