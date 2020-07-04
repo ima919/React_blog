@@ -8,6 +8,7 @@ import React, {
   useCallback,
 } from 'react';
 import PickerColor from '../../../components/pick-color';
+import UserInfo from './UserInfo';
 
 import './index.less';
 
@@ -30,9 +31,7 @@ const RightMenu: React.FC<IProps> = (props) => {
       <div className="language">
         简体中文
       </div>
-      <div className='user'>
-
-      </div>
+      <UserInfo />
     </div>
   );
 };

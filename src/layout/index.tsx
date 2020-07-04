@@ -11,18 +11,16 @@ import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
 import TopMenu from './components/top-menu';
 import RightMenu from './components/right-menu';
+import LeftTopSidebar from './left-top';
 
 
 import './index.less';
 
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 interface IProps {
 
@@ -39,20 +37,9 @@ const BlogLayout: React.FC<IProps> = (props) => {
 
   return (
     <Layout className="layout">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="layout-logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
-        </Menu>
-      </Sider>
+      <LeftTopSidebar
+        collapsed={collapsed}
+      />
       <Layout className="layout-header">
         <Header
           className="layout-header-background"
