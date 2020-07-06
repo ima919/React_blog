@@ -88,7 +88,7 @@ export default [
                       {
                         path: '/create',
                         icon: '',
-                        name: '新建标签',
+                        name: '新建文章',
                         component: CreateTag,
                       }
                     ]

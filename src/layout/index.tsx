@@ -6,7 +6,10 @@
 import React, {
   memo,
   useState,
+  useEffect,
 } from 'react';
+import {RouteConfigComponentProps} from 'react-router-config';
+import useActions from '../hooks/useActions';
 import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
@@ -15,6 +18,7 @@ import {
 import TopMenu from './components/top-menu';
 import RightMenu from './components/right-menu';
 import LeftTopSidebar from './left-top';
+import { menuAction } from '../redux/saga/actions/menu';
 
 
 import './index.less';
@@ -22,14 +26,24 @@ import './index.less';
 
 const { Header, Content } = Layout;
 
-interface IProps {
-
-}
+interface IProps extends RouteConfigComponentProps{}
 
 const BlogLayout: React.FC<IProps> = (props) => {
 
+  const { route } = props;
   const [collapsed, setCollapsed] = useState(false);
+  const actions = useActions({
+    setMenu: menuAction.setMenu,
+  })
 
+  useEffect(() => {
+
+    if( route ) {
+      actions.setMenu({
+        routes: route.routes,
+      });
+    }
+  }, []);
 
   const toggle = () => {
     setCollapsed(!collapsed);

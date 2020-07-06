@@ -4,8 +4,9 @@
  * @func: 约定项目的所有 命名空间
  ***/
 const NAME_SPACE = {
-  COMMON: 'blog-common',
-  USER: 'blog-user',
+  COMMON: 'menu-common',
+  USER: 'menu-user',
+  MENU: 'menu-menu',
 }
 
 export default NAME_SPACE;

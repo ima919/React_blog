@@ -10,5 +10,4 @@ const sagaReducer = {
   common,
   user,
 };
-
 export default sagaReducer;

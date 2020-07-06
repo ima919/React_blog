@@ -3,28 +3,25 @@
  * @time: 2020/6/17
  * @func:
  ***/
-import { SET_MENU, ASYNC_SET_MENU } from '../../actions/menu';
+import { menuAction } from '../../../saga/actions/menu';
+import { recursiveMenu } from './utils';
 
-const initialStateSetter = {
-
+const initialStateSetter: IMenu = {
+  breadcrumb: {},
 }
 export default function (state = initialStateSetter, action: ActionParams) {
   switch (action.type) {
-    case SET_MENU: {
+    case menuAction.SET_MENU: {
 
-      console.log('请求我收到了', action.payload);
+      const { routes } = action.payload;
+      const result = recursiveMenu(routes);
+
 
       return {
         ...state,
+        breadcrumb: {},
       }
     }
-    case ASYNC_SET_MENU: {
-      console.log('我收到了异步请求', action);
-      return {
-        ...state,
-      }
-    }
-
     default:
       return state;
 
