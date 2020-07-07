@@ -8,4 +8,5 @@ interface IState {
     retryTip: boolean;
   };
   user: IUser;
+  menu: IMenu;
 }

@@ -17,6 +17,10 @@ export const menuAction = extendRoutine(
     {
       type: 'SET_MENU',
       action: 'setMenu',
+    },
+    {
+      type: 'SET_CURRENT_MENU',
+      action: 'setCurrentMenu',
     }
   ]
 )

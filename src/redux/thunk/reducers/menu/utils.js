@@ -12,8 +12,10 @@ const breadcrumb = {};
 * @params: rootPath 跟路径
 * */
 export const createMenu = (rootPath, routes, permissions) => {
+  const menu = [];
 
   routes.forEach(subMenu => {
+    const underMenu = [];
     if( subMenu.routes ) {
       // 又要去遍历这个对象
       subMenu.routes.forEach(under => {
@@ -21,10 +23,17 @@ export const createMenu = (rootPath, routes, permissions) => {
         const basePath = rootPath + subMenu.path;
         // if( permissions ) { // 处理权限 }
         if( under.path ) {
+          // 处理面包屑
           breadcrumb[basePath + under.path] = {
             icon: under.icon,
             name: under.name,
           }
+          // 处理underMenu
+          underMenu.push({
+            icon: under.icon,
+            name: under.name,
+            path: basePath + under.path,
+          });
         }
         if( under.routes ) {
           under.routes.forEach(lastRoute => {
@@ -36,13 +45,38 @@ export const createMenu = (rootPath, routes, permissions) => {
             }
           })
         }
+
+        if( underMenu.length !== 0 ) {
+          menu.push({
+            icon: subMenu.icon,
+            name: subMenu.name,
+            path: `${rootPath}${subMenu.path}`,
+            routes: underMenu,
+          });
+        }
+        // 还需要在这里，处理 面包屑
+        breadcrumb[`${rootPath}${subMenu.path}`] = {
+          name: subMenu.name,
+          icon: subMenu.icon,
+        }
+
       })
+    } else {
+      menu.push({
+        icon: subMenu.icon,
+        name: subMenu.name,
+        path: `${rootPath}${subMenu.path}`,
+      });
+
+      // 还需要在这里，处理 面包屑
+      breadcrumb[`${rootPath}${subMenu.path}`] = {
+        name: subMenu.name,
+        icon: subMenu.icon,
+      }
     }
   })
 
-  return {
-
-  }
+  return menu;
 }
 
 
@@ -53,21 +87,32 @@ export const createMenu = (rootPath, routes, permissions) => {
 * */
 export const recursiveMenu = (routes, permissions = []) => {
 
+  const topMenu = [];
+  const sideMenu = {};
+
   routes.forEach(route => {
     const path = route.path;
+    topMenu.push({
+      name: route.name,
+      path: route.path || '',
+      icon: route.icon,
+    });
     if( route.routes ) {
       // 说明应该处理 breadcrumb
-      createMenu(path, route.routes);
+      const sidebar = createMenu(path, route.routes);
+      sideMenu[path] = sidebar;
 
       breadcrumb[path] = {
         name: route.name,
         icon: route.icon,
       }
-      console.log(breadcrumb);
     }
   });
 
   return {
+    topMenu,
+    breadcrumb,
+    sideMenu,
   }
 
 }

@@ -9,8 +9,9 @@ import React, {
   useEffect,
 } from 'react';
 import {RouteConfigComponentProps} from 'react-router-config';
+import { useSelector } from 'react-redux';
 import useActions from '../hooks/useActions';
-import { Layout, Menu } from 'antd';
+import { Layout, Spin } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -30,7 +31,8 @@ interface IProps extends RouteConfigComponentProps{}
 
 const BlogLayout: React.FC<IProps> = (props) => {
 
-  const { route } = props;
+  const { route, history, location } = props;
+  const { topMenu }  = useSelector((state: IState) => state.menu);
   const [collapsed, setCollapsed] = useState(false);
   const actions = useActions({
     setMenu: menuAction.setMenu,
@@ -44,6 +46,7 @@ const BlogLayout: React.FC<IProps> = (props) => {
       });
     }
   }, []);
+  if( topMenu.length === 0 ) return <Spin />
 
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -70,7 +73,10 @@ const BlogLayout: React.FC<IProps> = (props) => {
               }
             </div>
             <div className="box1">
-              <TopMenu />
+              <TopMenu
+                history={history}
+                location={location}
+              />
             </div>
             <div className="box2">
               <RightMenu />
