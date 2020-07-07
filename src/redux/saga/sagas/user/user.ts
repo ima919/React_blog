@@ -15,8 +15,9 @@ function* authorize (action: ActionParams<ILogin>) {
   // 一进来过后， 就去调用后端的登录接口
   try {
     // call 表示用同步的方式 做异步的事情
-    const res = yield call(login, action.payload);
-    const token = res.payload;
+    // const res = yield call(login, action.payload);
+    // const token = res.payload;
+    const token = 'abs.abs.abs';
     // call 效果上表示同步的事情
     // 一般登录成功过后会获取一个token身份标识 需要再本地存储进行存储，
     // 同时本次登录过后，需要把token放进下一次请求的请求头里去，
