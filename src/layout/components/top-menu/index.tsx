@@ -15,13 +15,10 @@ import {
   Menu,
 } from 'antd';
 import { menuAction } from '../../../redux/saga/actions/menu';
-import {RouteConfigComponentProps} from 'react-router-config';
-import {MenuProps} from 'antd/lib/menu';
+import { MenuProps } from 'antd/lib/menu';
+import { IRouteProps } from '../../layout';
 
-interface IProps {
-  history: RouteConfigComponentProps['history'];
-  location: RouteConfigComponentProps['location'];
-}
+interface IProps extends IRouteProps {}
 
 const { Item } = Menu;
 const TopMenu: React.FC<IProps> = (props) => {

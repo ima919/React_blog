@@ -22,6 +22,13 @@ import {
 const blog = [
   {
     // 2级级路由
+    component: Tag,
+    icon: <UnderlineOutlined />,
+    name: '博客面板',
+    path: '/blog-dashboard',
+  },
+  {
+    // 2级级路由
     component: RouteWithSubRouters,
     icon: <UnderlineOutlined />,
     name: '标签管理',

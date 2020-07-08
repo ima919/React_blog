@@ -9,6 +9,7 @@ import React, {
   useEffect,
 } from 'react';
 import {RouteConfigComponentProps} from 'react-router-config';
+import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
 import useActions from '../hooks/useActions';
 import { Layout, Spin } from 'antd';
@@ -19,6 +20,7 @@ import {
 import TopMenu from './components/top-menu';
 import RightMenu from './components/right-menu';
 import LeftTopSidebar from './left-top';
+import BreadcrumbComponent from './components/breadcrumb';
 import { menuAction } from '../redux/saga/actions/menu';
 
 
@@ -32,7 +34,7 @@ interface IProps extends RouteConfigComponentProps{}
 const BlogLayout: React.FC<IProps> = (props) => {
 
   const { route, history, location } = props;
-  const { topMenu }  = useSelector((state: IState) => state.menu);
+  const { topMenu, currentSidebar }  = useSelector((state: IState) => state.menu);
   const [collapsed, setCollapsed] = useState(false);
   const actions = useActions({
     setMenu: menuAction.setMenu,
@@ -56,22 +58,27 @@ const BlogLayout: React.FC<IProps> = (props) => {
     <Layout className="layout">
       <LeftTopSidebar
         collapsed={collapsed}
+        history={history}
+        location={location}
       />
       <Layout className="layout-header">
         <Header
           className="layout-header-background"
         >
           <div className="layout-header-top">
-            <div className='trigger'>
-              {
-                React.createElement(
-                  collapsed
-                    ? MenuUnfoldOutlined
-                    : MenuFoldOutlined,
-                  {onClick: toggle}
+            {
+              <div className='trigger'>
+                {
+                  currentSidebar.length !== 0
+                  && React.createElement(
+                    collapsed
+                      ? MenuUnfoldOutlined
+                      : MenuFoldOutlined,
+                    {onClick: toggle}
                   )
-              }
-            </div>
+                }
+              </div>
+            }
             <div className="box1">
               <TopMenu
                 history={history}
@@ -84,14 +91,12 @@ const BlogLayout: React.FC<IProps> = (props) => {
           </div>
         </Header>
         <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
+          className="layout-content"
         >
-          Content
+          <BreadcrumbComponent history={history} location={location} />
+          {
+            renderRoutes(route?.routes)
+          }
         </Content>
       </Layout>
     </Layout>
