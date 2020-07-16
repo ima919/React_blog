@@ -25,6 +25,7 @@ interface IProps {
   onChangeComplete: (color: string) => void;
   type?: string;
   position?: string;
+  small?: boolean;
 }
 
 const pikers: {
@@ -106,6 +107,8 @@ const PickColor: React.FC<IProps> = (props) => {
             style={styles.wrapper}
           >
             <Picker
+              {...props}
+              color={color}
               onChange={handleChange}
               onChangeComplete={handleChangeComplete}
             />

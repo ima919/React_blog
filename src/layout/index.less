@@ -48,6 +48,8 @@
       .box1 {
         flex-shrink: 1;
         flex-grow: 1;
+        padding-left: 15px;
+        overflow: hidden;
       }
 
       .box2 {
@@ -67,14 +69,15 @@
 
   .sidebar {
 
-    background: @primary-color!important;
+    overflow: hidden;
     .logo {
       padding: 8px 0 0 24px;
       width: 200px;
       height: 48px;
-      background: @primary-color;
 
       &-icon {
+        display: inline-block;
+        margin-right: 4px;
         font-size: 32px;
         color: #ffffff;
       }
@@ -89,9 +92,13 @@
     }
 
     .ant-menu {
-      background: @primary-color;
+      .ant-menu-item:after {
+        border-right: none;
+      }
     }
-
+    .ant-menu-inline {
+      border-right: none;
+    }
   }
 
   &-content {
@@ -110,4 +117,12 @@
     }
   }
 
+  .ant-layout-header {
+    background: #fff;
+  }
+
+}
+
+.ant-drawer-header-no-title {
+  margin-bottom: 20px;
 }

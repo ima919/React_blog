@@ -21,6 +21,18 @@ export const menuAction = extendRoutine(
     {
       type: 'SET_CURRENT_MENU',
       action: 'setCurrentMenu',
-    }
+    },
+    {
+      type: 'SET_THEME',
+      action: 'setTheme',
+    },
+    {
+      type: 'SET_PRIMARY_COLOR',
+      action: 'setPrimaryColor',
+    },
+    {
+      type: 'SET_DRAWER',
+      action: 'setDrawer',
+    },
   ]
 )

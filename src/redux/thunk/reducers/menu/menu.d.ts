@@ -11,6 +11,9 @@ interface IMenu {
   };
   currentSidebar: ISidebar;
   currentTopMenu: string | null;
+  theme: SiderProps;
+  primaryColor: string;
+  drawer: boolean;
 }
 
 type IMenuItem = {

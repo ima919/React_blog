@@ -8,6 +8,7 @@ import React, {
   useCallback,
   useState,
   useEffect,
+  useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { matchPath } from 'react-router-dom';
@@ -16,6 +17,7 @@ import {
   Menu,
 } from 'antd';
 import { CodepenOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
 import { IRouteProps } from '../layout';
 
 interface IProps extends IRouteProps{
@@ -27,7 +29,7 @@ const { Item, SubMenu } = Menu;
 const LeftTopSidebar: React.FC<IProps> = (props) => {
 
   const { collapsed, history, location: {pathname} } = props;
-  const { currentSidebar, currentTopMenu } = useSelector((state: IState) => state.menu );
+  const { currentSidebar, currentTopMenu, theme, primaryColor } = useSelector((state: IState) => state.menu );
   //
   const [keys, setKeys] = useState<{ currentOpenSubs: string[], currentSideMenu: string }>({
     currentSideMenu: '',
@@ -139,7 +141,19 @@ const LeftTopSidebar: React.FC<IProps> = (props) => {
     }
   }, [currentSidebar, currentTopMenu, history, keys.currentSideMenu, pathname]);
 
+  const style = useMemo(() => ({
+    sidebar: {
+      boxShadow: `1px 0 6px ${primaryColor}`,
+      background: theme === 'light' ? '#fff' : primaryColor,
+    },
+    logoColor: {
+      backgroundColor: theme === 'light' ? '#fff' : primaryColor,
+      color: theme === 'light' ? primaryColor : '#fff',
+    }
+  }), [primaryColor, theme])
+
   if( currentSidebar.length === 0 ) return null;
+
 
   return (
     <Sider
@@ -147,17 +161,23 @@ const LeftTopSidebar: React.FC<IProps> = (props) => {
       trigger={null}
       collapsible
       collapsed={collapsed}
+      style={style.sidebar}
     >
-      <div className="logo">
-        <CodepenOutlined className="logo-icon" />
+      <div
+        className="logo"
+      >
+        <CodepenOutlined
+          style={style.logoColor}
+          className="logo-icon" />
         <span
           className="logo-title"
+          style={style.logoColor}
         >
           dd-cms
         </span>
       </div>
       <Menu
-        theme="dark"
+        theme={theme}
         mode="inline"
         onClick={handleMenuItemClick}
         selectedKeys={[keys.currentSideMenu]}

@@ -7,12 +7,13 @@ import React, {
   memo,
   useState,
   useEffect,
+  useCallback,
 } from 'react';
 import {RouteConfigComponentProps} from 'react-router-config';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
 import useActions from '../hooks/useActions';
-import { Layout, Spin } from 'antd';
+import { Layout, Spin, Drawer, Form, Radio, Button } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -28,17 +29,21 @@ import './index.less';
 
 
 const { Header, Content } = Layout;
+const { Group } = Radio;
+const { Item } = Form;
 
 interface IProps extends RouteConfigComponentProps{}
 
 const BlogLayout: React.FC<IProps> = (props) => {
 
   const { route, history, location } = props;
-  const { topMenu, currentSidebar }  = useSelector((state: IState) => state.menu);
+  const { topMenu, currentSidebar, theme, drawer, primaryColor }  = useSelector((state: IState) => state.menu);
   const [collapsed, setCollapsed] = useState(false);
   const actions = useActions({
     setMenu: menuAction.setMenu,
-  })
+    setDrawer: menuAction.setDrawer,
+    setTheme: menuAction.setTheme,
+  });
 
   useEffect(() => {
 
@@ -48,7 +53,17 @@ const BlogLayout: React.FC<IProps> = (props) => {
       });
     }
   }, []);
+  console.log(theme);
+
+  const handleSettingClick = useCallback((values) => {
+    actions.setTheme(values);
+  }, [actions]);
+
   if( topMenu.length === 0 ) return <Spin />
+
+  const handleDrawerClose = () => {
+    actions.setDrawer(false);
+  }
 
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -67,10 +82,16 @@ const BlogLayout: React.FC<IProps> = (props) => {
         >
           <div className="layout-header-top">
             {
-              <div className='trigger'>
+              currentSidebar.length !== 0
+              &&
+              <div
+                className='trigger'
+                style={{
+                  color: primaryColor,
+                }}
+              >
                 {
-                  currentSidebar.length !== 0
-                  && React.createElement(
+                  React.createElement(
                     collapsed
                       ? MenuUnfoldOutlined
                       : MenuFoldOutlined,
@@ -89,6 +110,44 @@ const BlogLayout: React.FC<IProps> = (props) => {
               <RightMenu />
             </div>
           </div>
+          <Drawer
+            width={320}
+            visible={drawer}
+            onClose={handleDrawerClose}
+          >
+            <Form
+              onFinish={handleSettingClick}
+              initialValues={{
+                theme
+              }}
+            >
+              <Item
+                label="导航主题"
+                name="theme"
+              >
+                <Group value={theme}>
+                  <Radio value="dark">dark-暗色系</Radio>
+                  <Radio value="light">light-亮色系</Radio>
+                </Group>
+              </Item>
+              <Item>
+                <Button
+                  htmlType="submit"
+                  style={{
+                    marginRight: "20px"
+                  }}
+                >
+                  恢复系统设置
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                >
+                  保存
+                </Button>
+              </Item>
+            </Form>
+          </Drawer>
         </Header>
         <Content
           className="layout-content"

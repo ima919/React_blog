@@ -6,7 +6,8 @@
  * @return:
  * @updateTime:
  ***/
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
+import useActions from '../../../hooks/useActions';
 import {
   Badge,
   Avatar,
@@ -14,6 +15,7 @@ import {
   Menu, message,
 } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
+import { menuAction } from '../../../redux/saga/actions/menu';
 
 interface IProps {
 
@@ -22,11 +24,18 @@ interface IProps {
 const { Item } = Menu;
 const UserInfo: React.FC<IProps> = (props) => {
 
+  const actions = useActions({
+    setDrawer: menuAction.setDrawer,
+  })
+
+  const handleSystemSettingsClick = useCallback(() => {
+    actions.setDrawer(true);
+  }, []);
 
   const userMenu = (
     <Menu>
       <Item onClick={() => message.info('你点击了修改密码')}>修改密码</Item>
-      <Item onClick={() => message.info('你点击了系统设置')}>系统设置</Item>
+      <Item onClick={handleSystemSettingsClick}>系统设置</Item>
       <Item onClick={() => message.info('你点击了清除缓存')}>清除缓存</Item>
       <Item onClick={() => message.info('你点击了退出登录')}>退出登录</Item>
     </Menu>
