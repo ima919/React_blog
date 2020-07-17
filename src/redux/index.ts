@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import rootReducer from './reducer';
 import rootSaga from './saga/sagas';
 
@@ -43,7 +43,7 @@ const store = createStore(
       routerMiddleware(history),
       sagaMiddleware,
       thunk,
-      logger,
+      // logger,
   ),
 ));
 

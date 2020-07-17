@@ -53,13 +53,12 @@ const BlogLayout: React.FC<IProps> = (props) => {
       });
     }
   }, []);
-  console.log(theme);
 
   const handleSettingClick = useCallback((values) => {
     actions.setTheme(values);
   }, [actions]);
 
-  if( topMenu.length === 0 ) return <Spin />
+  if( topMenu.length === 0 ) return <Spin className="spin-center" />
 
   const handleDrawerClose = () => {
     actions.setDrawer(false);

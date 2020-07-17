@@ -1,11 +1,12 @@
 import React from 'react';
+import Loadable from 'react-loadable';
 import Auth from './Auth';
 import Dashboard from '../pages/dashboard/idnex';
-import Login from '../pages/login';
 import BlogLayout from '../layout';
 import RouteWithSubRouters from './RouteWithSubRouters';
 import blog from './config/blog';
 import person from './config/person';
+import loadings from './loadings';
 import {
   DiffOutlined,
   BoldOutlined,
@@ -21,8 +22,27 @@ export default [
     routes: [
       {
         // 1级级路由
-        component: Login,
+        component: Loadable({
+          loader: () => import('../pages/login'),
+          ...loadings,
+        }),
         path: '/login',
+      },
+      {
+        // 404
+        path: '/404',
+        component: Loadable({
+          loader: () => import('../components/not-found/NotFound'),
+          ...loadings,
+        }),
+      },
+      {
+        // 403 暂无权限
+        path: '/403',
+        component: Loadable({
+          loader: () => import('../components/not-found/NotFound'),
+          ...loadings,
+        }),
       },
       {
         path: '/',

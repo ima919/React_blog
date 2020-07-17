@@ -8,7 +8,8 @@
  ***/
 import RouteWithSubRouters from '../RouteWithSubRouters';
 import Tag from '../../pages/blog-manage/tag';
-import CreateTag from '../../pages/blog-manage/tag/CreateTag';
+import Loadable from "react-loadable";
+import loadings from '../loadings';
 
 const person = [
   {
@@ -27,7 +28,10 @@ const person = [
         routes: [
           {
             // 4级级路由
-            component: Tag,
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag'),
+              ...loadings,
+            }),
           }
         ]
       }
@@ -45,20 +49,26 @@ const person = [
         component: RouteWithSubRouters,
         icon: '',
         name: '近期TODO',
-        path: '/list',
+        path: '/object',
         routes: [
           {
             // 4级级路由
-            component: Tag,
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag/CreateTag'),
+              ...loadings,
+            }),
           },
           {
             path: '/create',
             icon: '',
             name: '新建计划',
-            component: CreateTag,
-          }
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag/CreateTag'),
+              ...loadings,
+            }),
+          },
         ]
-      }
+      },
     ]
   }
 ];

@@ -7,10 +7,10 @@
  * @updateTime:
  ***/
 import React from 'react';
+import Loadable from 'react-loadable';
 import RouteWithSubRouters from '../RouteWithSubRouters';
 import Tag from '../../pages/blog-manage/tag';
-import CreateTag from '../../pages/blog-manage/tag/CreateTag';
-import Article from '../../pages/blog-manage/article';
+import loadings from '../loadings';
 import {
   UnderlineOutlined,
   FontSizeOutlined,
@@ -49,7 +49,10 @@ const blog = [
             path: '/create',
             icon: <BgColorsOutlined />,
             name: '新建标签',
-            component: CreateTag,
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag/CreateTag'),
+              ...loadings,
+            }),
           }
         ]
       }
@@ -71,13 +74,19 @@ const blog = [
         routes: [
           {
             // 4级级路由
-            component: Article,
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/article'),
+              ...loadings,
+            }),
           },
           {
             path: '/create',
             icon: <BgColorsOutlined />,
             name: '新建文章',
-            component: CreateTag,
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag/CreateTag'),
+              ...loadings,
+            }),
           }
         ]
       }
