@@ -24,7 +24,7 @@ const BreadcrumbComponent: React.FC<IProps> = (props) => {
   // 思路： 就是 把咱们这pathname  给它拆开 然后一个一个去匹配
   // filter  的作用是 过滤掉 不存在或者为空字符串 '' 这样的项
   const pathSnippets = pathname.split('/').filter( i => i);
-  const isShowBack = pathSnippets.length > 0 && history['length'] > 1;
+  const isShowBack = pathSnippets.length > 3 && history['length'] > 1;
 
   return (
     <div className="breadcrumb">
