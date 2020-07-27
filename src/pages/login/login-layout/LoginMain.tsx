@@ -20,13 +20,13 @@ const LoginMain: React.FC<IProps> = (props) => {
   const { loading, fetch } = props;
 
   // values 是咱们这个表单的数据集合
-  // 加入要给 某个表单项赋予初始值，就需要给它传递一个参数initialValues
+  // 假如要给 某个表单项赋予初始值，就需要给它传递一个参数initialValues
   // 接受一个对象 键名就是 Item里边定义的name
   const handleLogin = async ( values: any ) => {
     if( !values.username || !values.password ) {
       notification.warn({
         message: '验证失败',
-        description: '用户名或密码错误',
+        description: '工号或密码错误',
       })
     } else {
 
@@ -39,7 +39,7 @@ const LoginMain: React.FC<IProps> = (props) => {
       // 51059a4712331fa67d5ea10854b477a6
 
       // 2020-06-20 补充说明
-      // 加入我们有这样的需求，我们希望在组件中去处理请求过后返回的数据，
+      //假如我们有这样的需求，我们希望在组件中去处理请求过后返回的数据，
       // async await 用一个变量去接受await的值的话，
       // 如果await后面是一个promise 那么 变量接收到的值就是成功的值，
       // 如果该promise失败， 则程序会终止运行。
@@ -64,13 +64,14 @@ const LoginMain: React.FC<IProps> = (props) => {
   return (
     <div className="login-layout-main">
       <div className='main-form'>
-        <h2>欢迎登录react_blog</h2>
+        <h2>欢迎登录考勤系统</h2>
         <Form
           className="main-form-box"
           onFinish={handleLogin}
         >
+          {/* ////收集值 */}
           <Item name="username">
-            <Input placeholder="请输入用户名" />
+            <Input placeholder="请输入工号" />
           </Item>
           <Item name="password">
             <Input type="password" placeholder="请输入密码" />
@@ -85,7 +86,7 @@ const LoginMain: React.FC<IProps> = (props) => {
               登录
             </Button>
           </Item>
-          <Item>
+          {/* <Item>
             <div className="main-form-box_other">
               <p>其他登录方式</p>
               <div className='any'>
@@ -94,7 +95,7 @@ const LoginMain: React.FC<IProps> = (props) => {
                 <span>GitHub</span>
               </div>
             </div>
-          </Item>
+          </Item> */}
         </Form>
       </div>
     </div>

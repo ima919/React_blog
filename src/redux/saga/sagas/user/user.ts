@@ -15,6 +15,7 @@ function* authorize (action: ActionParams<ILogin>) {
   // 一进来过后， 就去调用后端的登录接口
   try {
     // call 表示用同步的方式 做异步的事情
+   
     // const res = yield call(login, action.payload);
     // const token = res.payload;
     const token = 'abs.abs.abs';

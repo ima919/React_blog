@@ -25,7 +25,7 @@ const Login: React.FC<IProps> = (props) => {
   });
 
   // 如果登陆状态为已经登陆 （ true ） 就跳转到/路径下
-  if( isLogin ) return <Redirect to="/" />
+ if( isLogin ) return <Redirect to="/" />
 
   return (
     <div className="login">
@@ -37,7 +37,7 @@ const Login: React.FC<IProps> = (props) => {
         />
         <div className='login-layout-footer' />
         <ParticlesBg
-          type="lines"
+          type="custom"
           bg
         />
       </div>
