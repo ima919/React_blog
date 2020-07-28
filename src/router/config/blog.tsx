@@ -43,9 +43,9 @@ const blog = [
         routes: [
           {
             // 4级级路由
-            component: Tag,
+            component: Tag,////没有列表页
           },
-          {
+          {////有的话
             path: '/create',
             icon: <BgColorsOutlined />,
             name: '新建标签',

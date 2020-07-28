@@ -6,5 +6,5 @@ import http from '../http';
 // 登录
 export const login = (options: ILogin) => http.post('/login', options);
 
-// 刷新token
+// 刷新token(无感应更新)
 export const refreshToken = (authToken: string) => http.put('/auth/tokens', {refreshToken}, null);

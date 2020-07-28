@@ -7,9 +7,9 @@
  * thunk 明天配置
  ***/
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routinePromiseWatcherSaga } from 'redux-saga-routines';
+import { routinePromiseWatcherSaga } from 'redux-saga-routines';////监视promise
 import createSagaMiddleware from 'redux-saga';
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from 'history';////路由配置
 import { routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 // import logger from 'redux-logger';
@@ -40,7 +40,7 @@ const store = createStore(
   rootReducer( history ),
   composeEnhancer(
     applyMiddleware(
-      routerMiddleware(history),
+      routerMiddleware(history),////一定放在第一个去使用
       sagaMiddleware,
       thunk,
       // logger,

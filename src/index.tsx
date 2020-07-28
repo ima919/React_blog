@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
+    {/* 把history传递给App */}
     <App history={history} />
   </Provider>,
   document.getElementById('root')

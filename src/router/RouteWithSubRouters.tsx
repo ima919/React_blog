@@ -16,10 +16,10 @@ export default function (props: RouteConfigComponentProps) {
       return (
         <Switch>
           {
-            route.routes.map( (r, i) => {
+            route.routes.map( (r, i) => {////r就是router（config里边定义的对象），i是number
               return (
                 <Route
-                  key={r.key || i}
+                  key={r.key || i}////key router.config会提供
                   // 路径实际上是被拼凑出来的。
                   // 拼起来就是  /a/b/c/create
                   path={`${match.path}${r.path || ''}`}

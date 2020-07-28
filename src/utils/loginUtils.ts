@@ -23,8 +23,8 @@ export default  {
   saveLoginState (token: string) {
     LocalStore.set(TokenKey, token);
     // 过期时间处理 24小时后过期
-    // 小伙伴们可以随便整，
-    LocalStore.set(TokenDate, new Date().getTime() + 1860000);
+    // 小伙伴们可以随便整
+    LocalStore.set(TokenDate, new Date().getTime() + 18600000);
   },
   // 2 退出登录删除用户信息
   deleteLoginState() {
@@ -36,14 +36,14 @@ export default  {
     // 处理页面路由
     if( window.location.pathname !== '/login' ) window.location.href = '/login';
   },
-  // 3 获取用户是否登录
+  // 3 获取用户是否登录////获取的是布尔值
   getUserState () {
     // 因为有些项目 ，有些是在这里处理， 有些是在别的页面处理。
-    // eg： 加入，某个项目，先登录--->选择城市---> 其他选择
+    // eg： 假如，某个项目，先登录--->选择城市---> 其他选择
     // 写一下获取的逻辑，但是实际项目中 用不用，根据小伙伴们的实际需求
     // 判断用户是否登录
     const storeState = store.getState().user.isLogin;
-    // 如果登陆了，就返回true，页面就会响应这个值，去获取用户信息。
+    // 如果登录了，就返回true，页面就会响应这个值，去获取用户信息。
     if( storeState ) return true;
 
     //如果没有登录，就去验证本地的token信息 如果有token 就说明已经登陆了。但是状态还是未改变，
@@ -87,7 +87,7 @@ export default  {
      } catch( error ) {
        return LocalStore.get(TokenKey);
      }
-
+     ////不刷新token
      return LocalStore.get(TokenKey);
    },
 }
