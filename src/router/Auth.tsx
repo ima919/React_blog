@@ -35,7 +35,7 @@ const Auth: React.FC<IProps> = (props) => {
   * 如果咱们有些项目，是需要登陆过后，在路由鉴权这里去请求用户的信息，那么
   * useEffect(() => {
   *   做异步处理，请求数据。
-  *   发起action
+  *   登陆过后，发起action
   * }, [isLogin]);
   * */
 
@@ -71,7 +71,7 @@ const Auth: React.FC<IProps> = (props) => {
   if( isLogin && location.pathname === '/login' ) return <Redirect to='/' />
 
   // 重要的来了，在这里，判断权限.
-  // if( permissions.length === 0 && isLogin ) return (
+  // if( permissions.length === 0 && isLogin ) return (////授权的数组没有东西
   //  <>
   //       { GlobalTip }
   //

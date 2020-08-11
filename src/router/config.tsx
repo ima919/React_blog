@@ -12,8 +12,9 @@ import {
   DiffOutlined,
   BoldOutlined,
   DashboardOutlined,
+  FormOutlined,
 } from '@ant-design/icons';
-import { apply } from 'redux-saga/effects';
+// import { apply } from 'redux-saga/effects';
 
 export default [
   {
@@ -78,30 +79,31 @@ export default [
             path: '/person',
             routes: person,
           },
+
           {
             // 1级级路由
             component: RouteWithSubRouters,
-            icon: <BoldOutlined />,
+            icon: <FormOutlined />,
             name: '员工申请', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
             path: '/employeeapply',
             routes: employeeapply,
           },
-          {
-            // 1级级路由
-            component: RouteWithSubRouters,
-            icon: <BoldOutlined />,
-            name: '考勤分析', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
-            path: '/person',
-            routes: person,
-          },
-          {
-            // 1级级路由
-            component: RouteWithSubRouters,
-            icon: <BoldOutlined />,
-            name: '员工订餐', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
-            path: '/person',
-            routes: person,
-          }
+          // {
+          //   // 1级级路由
+          //   component: RouteWithSubRouters,
+          //   icon: <BoldOutlined />,
+          //   name: '考勤分析', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
+          //   path: '/person',
+          //   routes: person,
+          // },
+          // {
+          //   // 1级级路由
+          //   component: RouteWithSubRouters,
+          //   icon: <BoldOutlined />,
+          //   name: '员工订餐', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
+          //   path: '/person',
+          //   routes: person,
+          // }
         ],
       },
     ]

@@ -28,7 +28,7 @@ interface IProps {
   small?: boolean;
 }
 
-const pikers: {
+const pikers: {////声明类型
   [key: string]: React.ReactNode,
 } = {
   sketch: SketchPicker,
@@ -64,7 +64,7 @@ const PickColor: React.FC<IProps> = (props) => {
   }, [displayColorPicker]);
 
   // 展示色块的点击
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback(() => {////用useCallBack优化
     setDisplayColorPicker(!displayColorPicker);
   }, [displayColorPicker]);
 

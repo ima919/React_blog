@@ -1,7 +1,7 @@
 /***
  * @auth: dmx
  * @time: 2020/6/27
- * @func:
+ * @func:处理是否要重试
  ***/
 
 const WHITELIST = [
@@ -45,15 +45,15 @@ const BLACKLIST = [
   'CERT_REJECTED',
 ];
 
-const isAllowed = (error: any) => {
-  if( !error || !error.code) return true;
-  if( WHITELIST.indexOf(error.code) !== -1 ) return true;
+const isAllowed = (error: any) => { ////接受一个错误信息
+  if( !error || !error.code) return true;////错误信息不存在或者没有错误信息的状态码
+  if( WHITELIST.indexOf(error.code) !== -1 ) return true;////！== -1就是找到
 
   return BLACKLIST.indexOf(error.code) === -1;
 }
 
 export default (error: any) => !error.response
-  && Boolean(error.code) // 避开重试取消的请求，
-  && error.code !== 'ECONNABORTED'
-  && isAllowed(error);
+  && Boolean(error.code) // 避开重试取消的请求，（请求已经取消了，没有必要重试了）
+  && error.code !== 'ECONNABORTED'////已经失败的请求没必要重试了
+  && isAllowed(error);////判断是不是在上边两个数组里
 

@@ -9,7 +9,7 @@
 import React, {memo, useCallback} from 'react';
 import useActions from '../../../hooks/useActions';
 import {
-  Badge,
+  Badge,////头像
   Avatar,
   Dropdown,
   Menu, message,
@@ -34,7 +34,9 @@ const UserInfo: React.FC<IProps> = (props) => {
 
   const userMenu = (
     <Menu>
-      <Item onClick={() => message.info('你点击了修改密码')}>修改密码</Item>
+      <Item 
+      ////icon在这加
+      onClick={() => message.info('你点击了修改密码')}>修改密码</Item>
       <Item onClick={handleSystemSettingsClick}>系统设置</Item>
       <Item onClick={() => message.info('你点击了清除缓存')}>清除缓存</Item>
       <Item onClick={() => message.info('你点击了退出登录')}>退出登录</Item>
@@ -51,12 +53,12 @@ const UserInfo: React.FC<IProps> = (props) => {
         <Avatar
           size="small"
         >
-          T
+          F
         </Avatar>
       </Badge>
       <Dropdown
-        overlay={userMenu}
-        trigger={['hover']}
+        overlay={userMenu}////必传的参数
+        trigger={['hover']}////触发条件
       >
         <span className="name">
           超级管理员

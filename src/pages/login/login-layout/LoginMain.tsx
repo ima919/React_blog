@@ -30,8 +30,8 @@ const LoginMain: React.FC<IProps> = (props) => {
       })
     } else {
 
-      const { REACT_APP_MD5_SUFFIX } = process.env;
-      // 加密密码
+      const { REACT_APP_MD5_SUFFIX } = process.env;////密钥
+      // 加密密码 ////敏感信息一定定义在环境变量里
       const newPassword = MD5(`${values.password}${REACT_APP_MD5_SUFFIX}`).toString();
 
       // 执行登录的逻辑

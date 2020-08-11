@@ -108,13 +108,13 @@ class Http {
           // http的状态码 非200的时候
           if( error.response.status >= 500 ) message.error('服务器错误');
         } else if( error.request ) {
-          // ...
+          // ...///情况很少见
         } else {
           // 其他错误
-          message.error(error.message);
+          message.error(error.message);////显示提示信息
         }
 
-        return Promise.reject(error);
+        return Promise.reject(error);////返回错误信息
       }
 
     );

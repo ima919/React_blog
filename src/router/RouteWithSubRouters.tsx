@@ -19,14 +19,14 @@ export default function (props: RouteConfigComponentProps) {
             route.routes.map( (r, i) => {////r就是router（config里边定义的对象），i是number
               return (
                 <Route
-                  key={r.key || i}////key router.config会提供
+                  key={r.key || i}////key router.config会提供                 
                   // 路径实际上是被拼凑出来的。
                   // 拼起来就是  /a/b/c/create
                   path={`${match.path}${r.path || ''}`}
                   exact={r.exact}
                   strict={r.strict}
                   render={(props: RouteConfigComponentProps) => {
-                    if( r.render ) {
+                    if( r.render ) {                 
                       return r.render({...props, route: r});
                     }
                     if( r.component ) {
