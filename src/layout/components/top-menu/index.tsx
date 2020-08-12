@@ -23,7 +23,8 @@ interface IProps extends IRouteProps {}
 const { Item } = Menu;
 const TopMenu: React.FC<IProps> = (props) => {
   const { topMenu, currentTopMenu } = useSelector((state: IState) => state.menu );
-  const { history, location: {pathname} } = props;
+  const { history, location: {pathname} } = props;////用history传地址栏网页地址，把location里边的对象pathname解出来
+
   const actions = useActions({
     setCurrentMenu: menuAction.setCurrentMenu,
   })
@@ -41,12 +42,12 @@ const TopMenu: React.FC<IProps> = (props) => {
   useEffect(() => {
 
     if(
-      !currentTopMenu
+      !currentTopMenu////是long
       || pathname.split('/')[1] !== currentTopMenu.split('/')[1]
     ) {
       // 就要去寻找选中的是哪一项
       let selectedMenu = topMenu.find((menu) => {
-        const matchedRoute = matchPath(
+        const matchedRoute = matchPath(////API
           pathname,
           {
             path: menu.path,
@@ -88,7 +89,7 @@ const TopMenu: React.FC<IProps> = (props) => {
 
   // 侧边栏数据的 数据结构
   /*const sidebarMenu = {
-    '/dashboard': [],
+    '/dashboard': [],  ////键名+键值，通过键名（path）获得数组里的键值
     '/blog-manage': [],
     '/person': [],
   }*/
@@ -106,6 +107,7 @@ const TopMenu: React.FC<IProps> = (props) => {
               key={item.path}
               icon={item.icon}
             >
+              
               {
                 item.name
               }

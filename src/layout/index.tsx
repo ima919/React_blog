@@ -45,9 +45,9 @@ const BlogLayout: React.FC<IProps> = (props) => {
     setTheme: menuAction.setTheme,
   });
 
-  useEffect(() => {
-
-    if( route ) {
+  useEffect(() => {////发请求
+    ////也可用可选链
+    if( route ) {////存在再发请求
       actions.setMenu({
         routes: route.routes,
       });

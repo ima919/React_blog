@@ -63,10 +63,11 @@ const LeftTopSidebar: React.FC<IProps> = (props) => {
 
       // 当前打开的菜单，默认是第一个
       if( currentSidebar.length !== 0 ) {
-        // 如果当前的第0项 有下级路由，就要设置，当前展开的subMenu为第0项
+       // 如果当前的第0项 有下级路由，就要设置，当前展开的subMenu为第0项
         if( currentSidebar[0].routes ) {
           currentOpenSubs = [currentSidebar[0].path];
           currentSideMenu = currentSidebar[0].routes[0].path;
+         
         } else {
           currentOpenSubs = [];
           currentSideMenu = currentSidebar[0].path;
@@ -172,7 +173,7 @@ const LeftTopSidebar: React.FC<IProps> = (props) => {
           className="logo-title"
           style={style.logoColor}
         >
-          dd-cms
+          Hr-sys
         </span>
       </div>
       <Menu
@@ -184,15 +185,16 @@ const LeftTopSidebar: React.FC<IProps> = (props) => {
         onOpenChange={handleSubChange}
       >
         {
-          currentSidebar.map((menu: ISidebarItem) => {
+          currentSidebar.map((menu: ISidebarItem) => {////两级路由
             if( menu.routes ) {
               return (
                 <SubMenu
-                  key={menu.path}
-                  title={(<span>{ menu.name }</span>)}
+                  key={menu.path}////唯一标识
+                  title={(<span>{ menu.name }</span>)}////需要显示的东西
                   icon={menu.icon}
                 >
                   {/* 如果将来 咱们有需求，要添加多级路由*/}
+                  
                   {
                     menu.routes.map((menuItem: IMenuItem) => (
                       <Item
