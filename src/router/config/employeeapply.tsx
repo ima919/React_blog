@@ -26,20 +26,14 @@ const employeeapply = [
        name: '调休申请',
        path: '/restapply',    
      },
-    //  {
-    //   // // 3级级路由
-    //   component: RouteWithSubRouters,
-    //   icon: '',
-    //   name: '调休审批',
-    //   path: '/restok',
-    // },
-    // {
-    //   // // 3级级路由
-    //   component: RouteWithSubRouters,
-    //   icon: '',
-    //   name: '调休审批',
-    //   path: '/restok',
-    // },
+     {
+      // // 3级级路由
+      component: RouteWithSubRouters,
+      icon: '',
+      name: '调休审批',
+      path: '/restok',
+    }
+   
    ]
  },
  {

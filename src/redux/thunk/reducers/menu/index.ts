@@ -36,7 +36,7 @@ export default function (state = initialStateSetter, action: ActionParams) {
       return {
         ...state,
         ...action.payload,
-        currentSidebar: state.sideMenu[action.payload.currentTopMenu] || [],////首页的时候给空数组
+        currentSidebar: state.sideMenu[action.payload.currentTopMenu] || [],
       };
     }
 
@@ -52,7 +52,7 @@ export default function (state = initialStateSetter, action: ActionParams) {
       LocalStore.set('theme', action.payload.theme);
       return {
         ...state,
-        ...action.payload,////浅克隆
+        ...action.payload,
       };
     }
 

@@ -43,9 +43,12 @@ const blog = [
         routes: [
           {
             // 4级级路由
-            component: Tag,////没有列表页
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag'),
+              ...loadings,
+            }),
           },
-          {////有的话
+          {
             path: '/create',
             icon: <BgColorsOutlined />,
             name: '新建标签',
@@ -53,18 +56,36 @@ const blog = [
               loader: () => import('../../pages/blog-manage/tag/CreateTag'),
               ...loadings,
             }),
-          },
-          {
-            // 4级级路由
-            component: Tag,////没有列表页
-          },
-         
+          }
         ]
       },
-     
+      {
+        // 3级级路由
+        component: RouteWithSubRouters,
+        icon: <FontSizeOutlined />,
+        name: '测试',
+        path: '/test',
+        routes: [
+          {
+            // 4级级路由
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag'),
+              ...loadings,
+            }),
+          },
+          {
+            path: '/create',
+            icon: <BgColorsOutlined />,
+            name: '新建测试',
+            component: Loadable({
+              loader: () => import('../../pages/blog-manage/tag/CreateTag'),
+              ...loadings,
+            }),
+          }
+        ]
+      }
     ]
   },
-  
   {
     // 2级级路由
     component: RouteWithSubRouters,
@@ -82,7 +103,7 @@ const blog = [
           {
             // 4级级路由
             component: Loadable({
-              loader: () => import('../../pages/blog-manage/article'),
+              loader: () => import('../../pages/more-pages'),
               ...loadings,
             }),
           },

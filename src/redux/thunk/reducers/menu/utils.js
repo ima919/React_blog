@@ -4,7 +4,7 @@
  * @func: 辅助生成导航所需数据的工具函数
  ***/
 
-const breadcrumb = {};////面包屑涉及全局，所以定义成全局变量
+const breadcrumb = {};
 
 /*
 * 抽离逻辑出来
@@ -45,23 +45,22 @@ export const createMenu = (rootPath, routes, permissions) => {
             }
           })
         }
-
-        if( underMenu.length !== 0 ) {
-          menu.push({////推到父级
-            icon: subMenu.icon,
-            name: subMenu.name,
-            path: `${rootPath}${subMenu.path}`,////用模板字符串拼起来
-            routes: underMenu,
-          });
-        }
         // 还需要在这里，处理 面包屑
         breadcrumb[`${rootPath}${subMenu.path}`] = {
           name: subMenu.name,
           icon: subMenu.icon,
-         //// path: subMenu.path,只有两级均需显示页面时加上路径
         }
+      });
 
-      })
+      if( underMenu.length !== 0 ) {
+        menu.push({
+          icon: subMenu.icon,
+          name: subMenu.name,
+          path: `${rootPath}${subMenu.path}`,
+          routes: underMenu,
+        });
+      }
+
     } else {
       menu.push({
         icon: subMenu.icon,
@@ -88,22 +87,19 @@ export const createMenu = (rootPath, routes, permissions) => {
 * */
 export const recursiveMenu = (routes, permissions = []) => {
 
-////数据结构，涉及布局改变，重要！！！
-
-  const topMenu = [];////存放首页、个人中心等，用数组维持
+  const topMenu = [];
   const sideMenu = {};
 
-  routes.forEach(route => {////遍历
-    const path = route.path;////每一项的path都拿出来
+  routes.forEach(route => {
+    const path = route.path;
     topMenu.push({
       name: route.name,
       path: route.path || '',
       icon: route.icon,
     });
-    if( route.routes ) {////过滤掉首页，他不需要面包屑，不存在routes
+    if( route.routes ) {
       // 说明应该处理 breadcrumb
-      const sidebar = createMenu(path, route.routes);
-      sideMenu[path] = sidebar;
+      sideMenu[path] = createMenu(path, route.routes);
 
       breadcrumb[path] = {
         name: route.name,
