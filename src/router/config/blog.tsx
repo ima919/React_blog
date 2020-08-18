@@ -53,10 +53,15 @@ const blog = [
               loader: () => import('../../pages/blog-manage/tag/CreateTag'),
               ...loadings,
             }),
-          }
+          },
+          {
+            // 4级级路由
+            component: Tag,////没有列表页
+          },
+         
         ]
-      }
-
+      },
+     
     ]
   },
   

@@ -28,7 +28,7 @@ const PageLoading: React.FC<LoadingComponentProps> = (props) => {
       <Result
         status="error"
         title="组件加载失败"
-        subTitle="有可能当前正在发布新版本，或者您的网络出现了问题，请重试，如果多次重试失败，请联系管理员!!!"
+        subTitle="有可能当前正在发布新版本，或者您的网络出现了问题，请重试，如果多次重试失败，请联系技术部门!!!"
         extra={(
           <Button
             onClick={() => window.location.reload()}

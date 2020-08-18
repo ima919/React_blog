@@ -25,7 +25,7 @@ interface IProps {
 // 在线换肤 的原理 实际上是借助 window.less 这个属性
 // 具体怎么操作，马上讲来
 
-const ROUTE_BASE_NAME = process.env.PUBLIC_URL || '';
+const ROUTE_BASE_NAME = process.env.PUBLIC_URL || '';////拿到环境变量
 const BASE_NAME = ROUTE_BASE_NAME ? ROUTE_BASE_NAME.replace('/', '') : '';
 
 const OLD_LESS_ID = `less:${BASE_NAME ? BASE_NAME + '-' : ''}color:old`;
@@ -63,7 +63,7 @@ const RightMenu: React.FC<IProps> = (props) => {
       window['less'].modifyVars({
         '@primary-color': color,
       }).then(() => {
-        // 先清除掉 咱们这个 缓存的样式
+        // 先清除掉 咱们这个 缓存的样式////成功过后
         const oldStyle = document.getElementById(OLD_LESS_ID);
         if( oldStyle ) oldStyle.remove();
 

@@ -76,7 +76,7 @@ const LeftTopSidebar: React.FC<IProps> = (props) => {
 
       // 优先匹配二级菜单
       const subMenu = currentSidebar.find((sub: ISidebarItem) => {
-        const matchedRoute = matchPath(pathname, {
+        const matchedRoute = matchPath(pathname, {////匹配路由
           path: sub.path,
         });
 

@@ -102,7 +102,8 @@ const TopMenu: React.FC<IProps> = (props) => {
         onClick={handleGoPathClick}
       >
         {
-          topMenu.map((item) => (
+          topMenu.map
+          ((item) => (
             <Item
               key={item.path}
               icon={item.icon}
