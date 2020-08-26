@@ -7,12 +7,18 @@ import RouteWithSubRouters from './RouteWithSubRouters';
 import blog from './config/blog';
 import person from './config/person';
 import employeeapply from './config/employeeapply';
+import attendance from './config/attendance';
+import employeeorder from './config/employeeorder';
+import systemmanage from './config/systemmanage';
 import loadings from './loadings';
 import {
   DiffOutlined,
   BoldOutlined,
   DashboardOutlined,
   FormOutlined,
+  ToolOutlined,
+  AreaChartOutlined,
+  SolutionOutlined,
 } from '@ant-design/icons';
 // import { apply } from 'redux-saga/effects';
 
@@ -84,26 +90,34 @@ export default [
             // 1级级路由
             component: RouteWithSubRouters,
             icon: <FormOutlined />,
-            name: '员工申请', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
+            name: '员工申请', 
             path: '/employeeapply',
             routes: employeeapply,
           },
-          // {
-          //   // 1级级路由
-          //   component: RouteWithSubRouters,
-          //   icon: <BoldOutlined />,
-          //   name: '考勤分析', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
-          //   path: '/person',
-          //   routes: person,
-          // },
-          // {
-          //   // 1级级路由
-          //   component: RouteWithSubRouters,
-          //   icon: <BoldOutlined />,
-          //   name: '员工订餐', // 因为个人中心有很多模块: 记账系统， plan模块, 知识管理
-          //   path: '/person',
-          //   routes: person,
-          // }
+          {
+            // 1级级路由
+            component: RouteWithSubRouters,
+            icon: <AreaChartOutlined />,
+            name: '考勤分析', 
+            path: '/Attendance',
+            routes: attendance,
+          },
+          {
+            // 1级级路由
+            component: RouteWithSubRouters,
+            icon: <SolutionOutlined />,
+            name: '员工订餐', 
+            path: '/employeeorder',
+            routes: employeeorder,
+          },
+          {
+            // 1级级路由
+            component: RouteWithSubRouters,
+            icon: <ToolOutlined />,
+            name: '系统管理', 
+            path: '/systemmanage',
+            routes: systemmanage,
+          }
         ],
       },
     ]

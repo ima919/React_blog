@@ -4,16 +4,23 @@
  * @func:项目，面板页
  ***/
 import React, {memo} from 'react';
+import { Calendar } from 'antd';
 
 interface IProps {
 
 }
 
+function onPanelChange(value:any, mode:any) {
+  console.log(value.format('YYYY-MM-DD'), mode);
+}
+
+
 const Dashboard: React.FC<IProps> = (props) => {
 
   return (
+   
     <div>
-      面板页组件
+    <Calendar onPanelChange={onPanelChange} />, 
     </div>
   );
 };
