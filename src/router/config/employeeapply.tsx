@@ -128,7 +128,20 @@ const employeeapply = [
   icon: <ExclamationCircleOutlined />,
   name: '考勤异常',
   path: '/abnormalapply',
- 
+  routes: [
+    {
+      // 4级级路由
+      component: Loadable({
+        loader: () => import('../../pages/abnormalapply'),
+        ...loadings,
+      }),
+    },
+    {
+      path: '/create',
+      icon: '',
+      name: '申请异常处理',
+    },
+  ]
 },
 {
   // 2级级路由
